@@ -1,9 +1,9 @@
 task :default do
-  sh "crystal build --release z.cr"
+  sh "crystal build --release zmove.cr"
   sh "crystal build --release zadd.cr"
 end
 
 task :debug do
-  sh "crystal build --debug z.cr"
+  sh "crystal build --debug zmove.cr"
   sh "crystal build --debug zadd.cr"
 end

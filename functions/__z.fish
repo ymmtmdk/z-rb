@@ -56,7 +56,7 @@ function __z -d "Jump to a recent directory."
     else
       # set target (awk -v t=(date +%s) -v option="$option" -v typ="$typ" -v q="$arg" -F "|" -f $z_path/z.awk "$Z_DATA")
       # set target (/usr/bin/ruby $z_path/z.rb --option="$option" --type="$typ" --query="$arg" --now=(date +%s) "$Z_DATA")
-      set target (eval $z_path/z --option="$option" --type="$typ" --query="$arg" --now=(date +%s) "$Z_DATA")
+      set target (zmove --option="$option" --type="$typ" --query="$arg" --now=(date +%s) "$Z_DATA")
     end
 
     if test "$option" = "list"
