@@ -12,7 +12,7 @@ function __z_add -d "Add PATH to .z file"
   if test -f $tmpfile
     # awk -v path="$PWD" -v now=(date +%s) -F "|" -f $path/zadd.awk $Z_DATA ^ /dev/null > $tmpfile
     # /usr/bin/ruby $path/zadd.rb --pwd="$PWD" --now=(date +%s) $Z_DATA ^ /dev/null > $tmpfile
-    $path/zadd --pwd="$PWD" --now=(date +%s) $Z_DATA ^ /dev/null > $tmpfile
+    eval $path/zadd --pwd="$PWD" --now=(date +%s) $Z_DATA ^ /dev/null > $tmpfile
     mv -f $tmpfile $Z_DATA
   end
 end

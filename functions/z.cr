@@ -29,10 +29,10 @@ option = ""
 type = ""
 
 OptionParser.parse! do |parser|
-  parser.on("-n NOW", "--now", "now") { |n| now = n.to_i }
-  parser.on("-q QURRY", "--query", "query") { |q| keyword = q }
-  parser.on("-t TYPE", "--type", "type") { |t| type = t }
-  parser.on("-o OPTION", "--option", "option") { |o| option = o }
+  parser.on("-n NOW", "--now=NOW", "now") { |n| now = n.to_i }
+  parser.on("-q QUERY", "--query=QUERY", "query") { |q| keyword = q }
+  parser.on("-t TYPE", "--type=TYPE", "type") { |t| type = t }
+  parser.on("-o OPTION", "--option=OPTION", "option") { |o| option = o }
 end
 
 candidates  = {} of String => Float64

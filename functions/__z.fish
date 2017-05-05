@@ -1,9 +1,13 @@
 function __z -d "Jump to a recent directory."
-  set -l option
+  set -l option 'move'
   set -l arg
-  set -l typ ''
+  set -l typ 'frecent'
   set -g z_path (dirname (status -f))
   set -l target
+
+  if not test -e $Z_DATA
+    touch $Z_DATA
+  end
 
   getopts $argv | while read -l 1 2
     switch $1
@@ -52,7 +56,7 @@ function __z -d "Jump to a recent directory."
     else
       # set target (awk -v t=(date +%s) -v option="$option" -v typ="$typ" -v q="$arg" -F "|" -f $z_path/z.awk "$Z_DATA")
       # set target (/usr/bin/ruby $z_path/z.rb --option="$option" --type="$typ" --query="$arg" --now=(date +%s) "$Z_DATA")
-      set target (/$z_path/z --option="$option" --type="$typ" --query="$arg" --now=(date +%s) "$Z_DATA")
+      set target (eval $z_path/z --option="$option" --type="$typ" --query="$arg" --now=(date +%s) "$Z_DATA")
     end
 
     if test "$option" = "list"

@@ -4,8 +4,8 @@ pwd = ""
 now = 0
 
 OptionParser.parse! do |parser|
-  parser.on("-p PWD", "--pwd", "pwd") { |p| pwd = p }
-  parser.on("-n NOW", "--now", "now") { |n| now = n.to_i }
+  parser.on("-p PWD", "--pwd=PWD", "pwd") { |p| pwd = p }
+  parser.on("-n NOW", "--now=NOW", "now") { |n| now = n.to_i }
 end
 
 result = {} of String => Hash(Symbol, Int32|Float64)
@@ -18,7 +18,7 @@ ARGF.each_line do |line|
   result[path] = {:rank => rank, :time => time} if rank >= 1
 end
 
-if result[pwd]
+if result[pwd]?
   result[pwd][:rank] += 1
   result[pwd][:time] = now
 else
