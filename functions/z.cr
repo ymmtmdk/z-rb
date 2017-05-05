@@ -25,15 +25,17 @@ require "option_parser"
 
 now = 0
 keyword = ""
+option = ""
+type = ""
 
 OptionParser.parse! do |parser|
-  parser.on("-t TIME", "--time", "time") { |t| now = t.to_i }
-  parser.on("-k WORD", "--keyword", "keyword") { |k| keyword = k }
+  parser.on("-n NOW", "--now", "now") { |n| now = n.to_i }
+  parser.on("-q QURRY", "--query", "query") { |q| keyword = q }
+  parser.on("-t TYPE", "--type", "type") { |t| type = t }
+  parser.on("-o OPTION", "--option", "option") { |o| option = o }
 end
 
 candidates  = {} of String => Float64
-option = ""
-type = ""
 
 ARGF.each_line do |line|
   path, rank, time = line.chomp.split(/\|/)
