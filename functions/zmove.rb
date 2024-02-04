@@ -5,7 +5,7 @@ def frecent(rank, time, now)
   return rank*4 if dx < 3600
   return rank*2 if dx < 86400
   return rank/2 if dx < 604800
-  rank/4
+  rank / 4.0
 end
 
 keyword = ARGV[0]
