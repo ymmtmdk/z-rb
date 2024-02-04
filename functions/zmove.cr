@@ -1,12 +1,8 @@
-def frecent(rank : Float64, time : Int64, now : Int64) : Float64
+def frecent(rank, time, now)
   dx = now - time
-  if dx < 3600
-    return rank * 4.0
-  elsif dx < 86400
-    return rank * 2.0
-  elsif dx < 604800
-    return rank / 2.0
-  end
+  return rank*4 if dx < 3600
+  return rank*2 if dx < 86400
+  return rank/2 if dx < 604800
   rank / 4.0
 end
 
@@ -19,7 +15,7 @@ File.each_line(ARGV[2]) do |line|
   path, rank, time = line.chomp.split("|")
   rank = rank.to_f
   time = time.to_i
-  next unless Dir.exists?(path)
+  next unless File.directory?(path)
 
   if path.downcase =~ /#{keyword.downcase}/
     candidates[path] = frecent(rank, time, now)
@@ -28,5 +24,5 @@ end
 
 exit if candidates.empty?
 
-puts candidates.max_by { |path, scr| scr }[0]
+puts candidates.max_by{|path, scr| scr}[0]
 
