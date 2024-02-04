@@ -7,7 +7,7 @@ if test ! -f "$Z_DATA"
 end
 
 function __z_on_variable_pwd --on-variable PWD
-  __z_add $argv
+  __z_add
 end
 
 function fish_command_not_found
