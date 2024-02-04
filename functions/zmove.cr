@@ -1,60 +1,32 @@
-#! /usr/bin/ruby
-
-# require "optparse"
-
-def frecent(rank, time, now)
+def frecent(rank : Float64, time : Int64, now : Int64) : Float64
   dx = now - time
-  return rank*4 if dx < 3600
-  return rank*2 if dx < 86400
-  return rank/2 if dx < 604800
-  rank/4
-end
-
-def score(type, rank, time, now)
-  case type
-  when "rank"
-    rank
-  when "recent"
-    time.to_f
-  else
-    frecent(rank, time, now)
+  if dx < 3600
+    return rank * 4.0
+  elsif dx < 86400
+    return rank * 2.0
+  elsif dx < 604800
+    return rank / 2.0
   end
+  rank / 4.0
 end
 
-require "option_parser"
+keyword = ARGV[0]
+now = ARGV[1].to_i
 
-now = 0
-keyword = ""
-option = ""
-type = ""
+candidates = Hash(String, Float64).new
 
-OptionParser.parse! do |parser|
-  parser.on("-n NOW", "--now=NOW", "now") { |n| now = n.to_i }
-  parser.on("-q QUERY", "--query=QUERY", "query") { |q| keyword = q }
-  parser.on("-t TYPE", "--type=TYPE", "type") { |t| type = t }
-  parser.on("-o OPTION", "--option=OPTION", "option") { |o| option = o }
-end
-
-candidates  = {} of String => Float64
-
-ARGF.each_line do |line|
-  path, rank, time = line.chomp.split(/\|/)
+File.each_line(ARGV[2]) do |line|
+  path, rank, time = line.chomp.split("|")
   rank = rank.to_f
   time = time.to_i
-  next unless File.directory?(path)
+  next unless Dir.exists?(path)
 
-  if [keyword].all?{|word| path.downcase =~ /#{word.downcase}/}
-    candidates[path] = score(type, rank, time, now)
+  if path.downcase =~ /#{keyword.downcase}/
+    candidates[path] = frecent(rank, time, now)
   end
 end
 
 exit if candidates.empty?
 
-if option == "list"
-  candidates.each do |path, scr|
-    printf "%-10s %s;\n", scr, path
-  end
-else
-  puts candidates.max_by{|path, scr| scr}[0]
-end
+puts candidates.max_by { |path, scr| scr }[0]
 
