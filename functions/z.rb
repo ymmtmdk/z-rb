@@ -8,7 +8,6 @@ def frecent(rank, time, now)
   rank/4
 end
 
-STDERR.puts(3)
 keyword = ARGV[0]
 now = ARGV[1].to_i
 
