@@ -1,14 +1,11 @@
 #! /usr/bin/ruby
 
-require 'optparse'
-
-opts = ARGV.getopts("", "pwd:", "now:")
-pwd = opts["pwd"]
-now = opts["now"].to_i
+pwd = ARGV[0]
+now = ARGV[1].to_i
 
 result = {}
 
-ARGF.each_line do |line|
+IO.readlines(ARGV[2]).each do |line|
   path, rank, time = line.chomp.split(/\|/)
   rank = rank.to_f
   time = time.to_i
