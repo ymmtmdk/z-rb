@@ -14,7 +14,7 @@ function __z_move -d "Jump to a recent directory."
 
   echo TODO
   echo ruby "$argv" (date +%s) "$Z_DATA"
-  set target (/usr/bin/ruby $path/z.rb "$argv" (date +%s) "$Z_DATA")
+  set target (/usr/bin/ruby $path/zmove.rb "$argv" (date +%s) "$Z_DATA")
 
   if test "$status" -gt 0
     return $status
